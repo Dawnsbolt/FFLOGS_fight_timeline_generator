@@ -3,5 +3,5 @@
     "OUTPUT_FILENAME":"out.txt",
     "IGNORE_UNKNOWN":"true",
     "IGNORE_REPEATS":"true",
-    "REPEAT_INTERVAL":"100"
+    "REPEAT_INTERVAL":"0"
 }
