@@ -7,7 +7,8 @@ SETTINGS.json contains the following:
     OUTPUT_FILENAME [filename]  -   name of the desired output file
     IGNORE_REPEATS [True/False] -   ignore consecutive events that occur within 1 second of each other
     IGNORE_UNKNOWN [True/False] -   ignore unknown_* events
-    REPEAT_INTERVAL [int] - min time required between repeated casts before ignoring
+    REPEAT_INTERVAL [int] -         time between repeated events allowed before they are considered to be repeats that should be ignored
+                                    // Useful for ignoring spread mechanics which occur concurrently while allowing repeat raidwides through
 Add event names you want to ignore to BLACKLIST.json
 """
 import os, re, json
@@ -43,7 +44,6 @@ def main():
              continue
         if event[1] not in BLACKLIST:
             output_string = event[0] + '\t' + event[1] + '\n'
-            #print(output_string) # FOR DEBUG
             results.write(output_string)
             previous_time = seconds
             previous_event = event[1]
