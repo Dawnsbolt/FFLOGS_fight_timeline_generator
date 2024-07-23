@@ -39,9 +39,10 @@ def main():
     for event in myLog:
         seconds = int(event[0].split(":")[1].split(".")[0])
         if IGNORE_UNKNOWN and re.search('unknown_.*', event[1]) or event[1] in BLACKLIST:
-             continue
+            previous_time = seconds
+            continue
         if IGNORE_REPEATS and previous_event == event[1] and seconds-previous_time < REPEAT_INTERVAL:
-             continue
+            continue
         if event[1] not in BLACKLIST:
             output_string = event[0] + '\t' + event[1] + '\n'
             results.write(output_string)
