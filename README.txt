@@ -1,9 +1,11 @@
-Python 3.x script used to convert a CSV of enemy casts into a clean timestring for spreadsheets where each line is of the form:
+Python 3.x script used to convert an FFLOGs CSV of enemy casts into a clean timestring for spreadsheets where each line is of the form:
 	[time]	[event_name]
 
 [DEPENDENCIES]
 Requires Python 3.x - https://www.python.org/
-
+TO DOWNLOAD CSV LOGS FROM https://www.fflogs.com:
+	Enemies > Casts > Events > [DOWNLOAD CSV]
+	* Include All Begin Casts can be used to add a duplicate line event for start of casts; Default is when cast is complete
 [USAGE]
 	1. Place your input file in same directory as the script
 	2. Configure SETTINGS.json and BLACKLIST.json
