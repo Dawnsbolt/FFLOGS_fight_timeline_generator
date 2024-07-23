@@ -16,7 +16,7 @@ SETTINGS.json contains the following:
 	OUTPUT_FILENAME [filename]  -   name of the desired output file
 	IGNORE_REPEATS [True/False] -   ignore consecutive repeated events (eg spread mechanics);
 	IGNORE_UNKNOWN [True/False] -   ignore unknown_* events
-	REPEAT_INTERVAL [int] - seconds for maximum delay between repeated casts
+	REPEAT_INTERVAL [int] - minimum time between repeated events required before being ignored
 
 BLACKLIST.json contains the names of events the parser ignores
 Ignores "attack" casts by default
