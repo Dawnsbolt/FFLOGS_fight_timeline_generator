@@ -7,7 +7,7 @@ Requires Python 3.x - https://www.python.org/
 [USAGE]
 	1. Place your input file in same directory as the script
 	2. Configure SETTINGS.json and BLACKLIST.json
-	3. Run ffSpreadsheetExec.py
+	3. Run ffSpreadsheetCAST.py
 	4. Output should be OUTPUT_FILENAME.txt within the directory script was run
 
 [CONFIGURATION]
