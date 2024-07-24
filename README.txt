@@ -21,7 +21,8 @@ SETTINGS.json contains the following:
 	REPEAT_INTERVAL [int] - minimum time allowed between repeated events before they are ignored
 
 BLACKLIST.json contains the names of events the parser ignores
-Ignores "attack" casts by default
+Ignores "Attack" casts by default
+! Case-Sensitive !
 Format Example:
 	{
 		"event_name":"",

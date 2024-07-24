@@ -18,7 +18,7 @@ def main():
     # set CWD
     os.chdir(os.path.dirname(__file__))
     # load settings
-    INPUT_FILENAME, OUTPUT_FILENAME, IGNORE_UNKNOWN, IGNORE_REPEATS, REPEAT_INTERVAL = loadSettings()
+    OUTPUT_FILENAME, IGNORE_UNKNOWN, IGNORE_REPEATS, REPEAT_INTERVAL = loadSettings()
     # load blacklist
     blacklistFile = open("BLACKLIST.json")
     BLACKLIST = json.load(blacklistFile)
@@ -26,34 +26,37 @@ def main():
     
     # file I/O
     results = open(OUTPUT_FILENAME, 'w', encoding="utf-8")
+    input_directory = os.path.join(os.getcwd(), "inputs")
+    os.chdir(input_directory)
+    directory_list = os.listdir(input_directory)
     # initialize generator
-    try:
-        myLog = Log(INPUT_FILENAME)
-    except LogFileNotFound:
-            print("Log file not found. Do you have a file named: \"" + INPUT_FILENAME + "\" in the same directory as this script?")
-            input("Press ENTER to exit...")
-            return -1
+    for file in directory_list:
+        try:
+            myLog = Log(file)
+        except LogFileNotFound:
+                print("Log file not found. Do you have a file in the inputs folder?")
+                input("Press ENTER to exit...")
+                return -1
 
-    # parse log
-    previous_event = ''
-    for event in myLog:
-        seconds = int(event[0].split(":")[1].split(".")[0])
-        if IGNORE_UNKNOWN and re.search('unknown_.*', event[1]) or event[1] in BLACKLIST:
-            continue
-        if IGNORE_REPEATS and previous_event == event[1] and seconds-previous_time < REPEAT_INTERVAL:
-            previous_time = seconds
-            continue
-        if event[1] not in BLACKLIST:
-            results.write(event[0] + '\t' + event[1] + '\n')
-            previous_time = seconds
-            previous_event = event[1]
+        # parse log
+        previous_event = ''
+        for event in myLog:
+            seconds = int(event[0].split(":")[1].split(".")[0])
+            if IGNORE_UNKNOWN and re.search('unknown_.*', event[1]) or event[1] in BLACKLIST:
+                continue
+            if IGNORE_REPEATS and previous_event == event[1] and seconds-previous_time < REPEAT_INTERVAL:
+                previous_time = seconds
+                continue
+            if event[1] not in BLACKLIST:
+                results.write(event[0] + '\t' + event[1] + '\n')
+                previous_time = seconds
+                previous_event = event[1]
     results.close()
 
 def loadSettings():
     jsonFile = open('SETTINGS.json', 'r', encoding='utf-8')
     jsonObj = json.load(jsonFile)
-    settings = [jsonObj["INPUT_FILENAME"], 
-                jsonObj["OUTPUT_FILENAME"],
+    settings = [jsonObj["OUTPUT_FILENAME"],
                 jsonObj["IGNORE_UNKNOWN"].lower() == "true",
                 jsonObj["IGNORE_REPEATS"].lower() == "true",
                 int(jsonObj["REPEAT_INTERVAL"])]

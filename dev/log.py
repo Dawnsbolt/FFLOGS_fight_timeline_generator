@@ -62,8 +62,8 @@ def parse_event(event_input):
         if token == 'on': # end of ability_name
             next_token_is_ability = False
         if token and next_token_is_ability:
-            ability_name += ' ' + token
-    return ability_name.replace('\"', '').replace(' ', '')
+            ability_name += token + ' '
+    return ability_name.replace('\"', '')[:-1]
     
 def parse_time(time_input):
     clean_time = time_input.replace("\"", '') #clean timestamp input
