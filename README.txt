@@ -7,7 +7,7 @@ TO DOWNLOAD CSV LOGS FROM https://www.fflogs.com:
 	Enemies > Casts > Events > [DOWNLOAD CSV]
 	* Include All Begin Casts can be used to add a duplicate line event for start of casts; Default is when cast is complete
 [USAGE]
-	1. Place your input file [DEFAULT="in.csv"] in same directory as the script
+	1. Place your input files into inputs folder. Make sure to remove demo.csv
 	2. Configure SETTINGS.json and BLACKLIST.json
 	3. Run ffSpreadsheetCAST.py
 	4. Output should be [OUTPUT_FILENAME].txt within the directory script was run
