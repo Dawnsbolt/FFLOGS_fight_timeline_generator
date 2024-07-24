@@ -44,8 +44,7 @@ def main():
             previous_time = seconds
             continue
         if event[1] not in BLACKLIST:
-            output_string = event[0] + '\t' + event[1] + '\n'
-            results.write(output_string)
+            results.write(event[0] + '\t' + event[1] + '\n')
             previous_time = seconds
             previous_event = event[1]
 
