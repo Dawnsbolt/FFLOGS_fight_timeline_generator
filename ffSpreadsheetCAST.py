@@ -47,6 +47,7 @@ def main():
             results.write(event[0] + '\t' + event[1] + '\n')
             previous_time = seconds
             previous_event = event[1]
+    results.close()
 
 def loadSettings():
     jsonFile = open('SETTINGS.json', 'r', encoding='utf-8')
