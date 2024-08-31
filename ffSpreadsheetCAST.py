@@ -18,7 +18,7 @@ def main():
     # set CWD
     os.chdir(os.path.dirname(__file__))
     # load settings
-    OUTPUT_FILENAME, IGNORE_UNKNOWN, IGNORE_REPEATS, REPEAT_INTERVAL = loadSettings()
+    OUTPUT_FILENAME, IGNORE_UNKNOWN, IGNORE_REPEATS, REPEAT_INTERVAL, FILLER_GCDS = loadSettings()
     # load blacklist
     blacklistFile = open("BLACKLIST.json")
     BLACKLIST = json.load(blacklistFile)
@@ -50,10 +50,11 @@ def main():
             if IGNORE_REPEATS and previous_event == event[1] and seconds-previous_time < REPEAT_INTERVAL:
                 previous_time = seconds
                 continue
-            event_sec = timecode_to_seconds(event[0])
-            while (event_sec >= t):
-                results.write(seconds_to_timecode(t)+'\t'+'\n')
-                t+=2.5
+            if FILLER_GCDS:
+                event_sec = timecode_to_seconds(event[0])
+                while (event_sec >= t):
+                    results.write(seconds_to_timecode(t)+'\t'+'\n')
+                    t+=2.5
             if event[1] not in BLACKLIST:
                 results.write(event[0] + '\t' + event[1] + '\n')
                 previous_time = seconds
@@ -66,7 +67,8 @@ def loadSettings():
     settings = [jsonObj["OUTPUT_FILENAME"],
                 jsonObj["IGNORE_UNKNOWN"].lower() == "true",
                 jsonObj["IGNORE_REPEATS"].lower() == "true",
-                int(jsonObj["REPEAT_INTERVAL"])]
+                int(jsonObj["REPEAT_INTERVAL"]),
+                jsonObj["FILLER_GCDS"].lower() == "true"]
     jsonFile.close()
     return settings
 

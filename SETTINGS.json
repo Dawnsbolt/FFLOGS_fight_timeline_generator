@@ -2,5 +2,6 @@
     "OUTPUT_FILENAME":"out.txt",
     "IGNORE_UNKNOWN":"true",
     "IGNORE_REPEATS":"true",
-    "REPEAT_INTERVAL":"3"
+    "REPEAT_INTERVAL":"5",
+    "FILLER_GCDS":"true"
 }
