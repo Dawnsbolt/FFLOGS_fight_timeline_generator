@@ -71,3 +71,8 @@ def parse_time(time_input):
     main_timestamp = time_tokens[0]
     rounded_sub = str(floor(int(time_tokens[1])/ROUND)) +'00'
     return main_timestamp + '.' + rounded_sub[0:3]
+
+def timecode_to_seconds(timecode):
+    minute, tokens = timecode.split(':')
+    seconds, subseconds = tokens.split('.')
+    return 60*int(minute) + int(seconds)

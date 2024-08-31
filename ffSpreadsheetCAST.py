@@ -12,7 +12,7 @@ SETTINGS.json contains the following:
 Add event names you want to ignore to BLACKLIST.json
 """
 import os, re, json
-from dev.log import Log, LogFileNotFound
+from dev.log import Log, LogFileNotFound, timecode_to_seconds
 
 def main():
     # set CWD
@@ -30,6 +30,9 @@ def main():
     os.chdir(input_directory)
     directory_list = os.listdir(input_directory)
     # initialize generator
+    t = 0
+    results.write(seconds_to_timecode(t) + '\t' + 'PULL' + '\n')
+    t += 2.5
     for file in directory_list:
         try:
             myLog = Log(file)
@@ -47,6 +50,10 @@ def main():
             if IGNORE_REPEATS and previous_event == event[1] and seconds-previous_time < REPEAT_INTERVAL:
                 previous_time = seconds
                 continue
+            event_sec = timecode_to_seconds(event[0])
+            while (event_sec >= t):
+                results.write(seconds_to_timecode(t)+'\t'+'\n')
+                t+=2.5
             if event[1] not in BLACKLIST:
                 results.write(event[0] + '\t' + event[1] + '\n')
                 previous_time = seconds
@@ -62,6 +69,21 @@ def loadSettings():
                 int(jsonObj["REPEAT_INTERVAL"])]
     jsonFile.close()
     return settings
+
+def seconds_to_timecode(input):
+    t=input
+    subsec = 0
+    if (isinstance(input,float)):
+        t, subsec = str(input).split(".")
+    minutes = int(t) // 60
+    seconds = int(t) % 60
+    final_sec = str(seconds)
+    final_min = str(minutes)
+    if seconds < 10:
+        final_sec = '0' + final_sec
+    if minutes < 10:
+        final_min = '0' + final_min
+    return final_min + ":" + final_sec + '.' + str(subsec) + '00'
 
 if __name__ == '__main__':
     main()
